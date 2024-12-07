@@ -22,9 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nukt=&*63ci8$co#c8=i8mr$s=r%weasy3&v^te&+-mqi@di)d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sajjadhossein.site', 'www.sajjadhossein.site']
 
 # Application definition
 
