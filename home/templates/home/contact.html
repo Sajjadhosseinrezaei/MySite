@@ -88,12 +88,12 @@
 
       </div>
 
-      <form action="" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="600">
+      <form action="{% url 'home:contact' %}" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="600">
         {% csrf_token %}
         <div class="row gy-4">
 
           <div class="col-md-6">
-            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+            {{ form.name }}
           </div>
 
           <div class="col-md-6 ">

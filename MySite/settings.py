@@ -22,10 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nukt=&*63ci8$co#c8=i8mr$s=r%weasy3&v^te&+-mqi@di)d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = ['sajjadhossein.site', 'www.sajjadhossein.site']
-
+DEBUG = True
+if not DEBUG:
+    ALLOWED_HOSTS = ['sajjadhossein.site', 'www.sajjadhossein.site']
+else:
+    ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
@@ -110,7 +111,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-
+import os
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -119,3 +120,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'sajjadhosseinrezay6@gmail.com'
+EMAIL_HOST_PASSWORD = 'wyplrjoztobquegq'
+EMAIL_USE_TLS = True

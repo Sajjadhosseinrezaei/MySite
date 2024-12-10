@@ -1,5 +1,6 @@
 from django.urls import path
 from django.views.generic import TemplateView
+from . import views
 
 app_name = 'home'
 urlpatterns = [
@@ -8,5 +9,5 @@ urlpatterns = [
     path('resume', TemplateView.as_view(template_name='home/resume.html'), name='resume'),
     path('services', TemplateView.as_view(template_name='home/services.html'), name='services'),
     path('portfolio', TemplateView.as_view(template_name='home/portfolio.html'), name='portfolio'),
-    path('contact', TemplateView.as_view(template_name='home/contact.html'), name='contact'),
+    path('contact', views.SendMessageForm.as_view(), name='contact'),
 ]
