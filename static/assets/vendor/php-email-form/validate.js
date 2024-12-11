@@ -22,6 +22,9 @@
 
       let formData = new FormData(thisForm);
 
+      // گرفتن CSRF Token از کوکی‌ها
+      const csrftoken = getCookie('csrftoken');
+
       if (recaptcha) {
         if (typeof grecaptcha !== "undefined") {
           grecaptcha.ready(function () {
@@ -29,7 +32,7 @@
               grecaptcha.execute(recaptcha, { action: 'php_email_form_submit' })
                 .then(token => {
                   formData.set('recaptcha-response', token);
-                  php_email_form_submit(thisForm, action, formData);
+                  php_email_form_submit(thisForm, action, formData, csrftoken);
                 });
             } catch (error) {
               displayError(thisForm, `خطا در اجرای reCaptcha: ${error.message}`);
@@ -39,18 +42,21 @@
           displayError(thisForm, 'خطا: API جاوااسکریپت reCaptcha لود نشده است.');
         }
       } else {
-        php_email_form_submit(thisForm, action, formData);
+        php_email_form_submit(thisForm, action, formData, csrftoken);
       }
     });
   });
 
-  function php_email_form_submit(thisForm, action, formData) {
+  function php_email_form_submit(thisForm, action, formData, csrftoken) {
     fetch(action, {
       method: 'POST',
       body: formData,
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRFToken': csrftoken // اضافه کردن CSRF Token به هدر
+      }
     })
-      .then(response => response.json())  // تبدیل پاسخ به JSON
+      .then(response => response.json())
       .then(data => {
         thisForm.querySelector('.loading').classList.remove('d-block');
         if (data.status === 'success') {
@@ -70,5 +76,20 @@
     thisForm.querySelector('.loading').classList.remove('d-block');
     thisForm.querySelector('.error-message').innerHTML = error;
     thisForm.querySelector('.error-message').classList.add('d-block');
+  }
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
   }
 })();
