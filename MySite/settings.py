@@ -22,9 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nukt=&*63ci8$co#c8=i8mr$s=r%weasy3&v^te&+-mqi@di)d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 if not DEBUG:
-    ALLOWED_HOSTS = ['sajjadhossein.site', 'www.sajjadhossein.site']
+    ALLOWED_HOSTS = ['sajjadhossein.site', 'www.sajjadhossein.site', 'www.sajjadhossein.pythonanywhere.com', 'sajjadhossein.pythonanywhere.com']
 else:
     ALLOWED_HOSTS = ['*']
 # Application definition
@@ -114,7 +114,7 @@ USE_TZ = True
 import os
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = '/home/sajjadhossein/sajjadhossein.pythonanywhere.com/static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
